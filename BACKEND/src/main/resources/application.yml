@@ -1,0 +1,12 @@
+jwt:
+  secret: 'jwt-secret'
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/planpro
+    username: touza
+    password: touza
+  jpa:
+    show-sql : false
+    hibernate:
+      ddl-auto: create
