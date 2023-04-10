@@ -7,6 +7,9 @@
         <h4><a routerLink="" class="header__logo">PLAN PRO</a></h4>
         <ul class="d-flex nav__list">
           <li class="nav__item">
+            <a href="">Events</a>
+          </li>
+          <li class="nav__item">
             <a href="">Groups & Meetings</a>
           </li>
           <li class="nav__item">
@@ -84,14 +87,14 @@
         <span></span>
       </div>
       <div class="row hotels__content">
-        <div *ngFor="let hotel of hotels" class="col-3 hotel__item">
+        <div *ngFor="let category of categories" class="col-3 hotel__item">
           <div class="hotel__image">
-            <img src="{{ hotel.imageUrl }}" class="w-100" />
+            <img src="{{ category.imageUrl }}" class="w-100" />
           </div>
-          <h5 class="my-3">{{ hotel.name }}</h5>
-          <p class="hotel__description">{{ hotel.description }}</p>
-          <a routerLink="/hotel/rooms/{{ hotel.id }}" class="see__all_rooms_btn"
-            >SEE ALL ROOMS</a
+          <h5 class="my-3 text-capitalize">{{ category.name }}</h5>
+          <p class="hotel__description">{{ category.description }}</p>
+          <a routerLink="/hotel/rooms/{{ category.id }}" class="see__all_rooms_btn"
+            >SEE ALL EVENTS</a
           >
         </div>
       </div>
@@ -101,12 +104,12 @@
 
 <section class="offer__section">
   <div>
-    <h2>Get 10% off On Your Next Booking</h2>
+    <h2>Get 10% off For Your Next Event</h2>
     <p>
-      When you book your accommodation through this Booking.com discount link,
-      you will get 10% cash back in the form of a refund to your credit or debit
-      card after you have completed your stay booked through Booking.com. Is
-      there a catch here? Not really. It is pretty straightforward.
+      Get ready for the event of the year! We're excited to offer you a special discount of 10% off 
+      all ticket purchases for our upcoming event. This is your chance to save on admission 
+      and experience all the excitement and fun that the event has to offer. To take advantage of this offer, 
+      simply enter the promo code EVENT10 at checkout. 
     </p>
     <button>Get Started</button>
   </div>
@@ -115,7 +118,7 @@
 <section class="rooms__section">
   <div class="container">
     <div class="hotels__section__title">
-      <h5>Discover Our Featured Events</h5>
+      <h5>Discover Our New Featured Events</h5>
       <span></span>
     </div>
     <div class="row gap-5 rooms__layout">
@@ -155,7 +158,7 @@
             Filter By :
           </h6>
           <div class="bui-spacer--large">
-            <h5 class="filter__title">| Star Rating</h5>
+            <h5 class="filter__title">Star Rating</h5>
             <hr />
             <div class="bui-group filters__list" role="group">
               <p>
@@ -191,7 +194,7 @@
             </div>
           </div>
           <div class="bui-spacer--large">
-            <h5 class="filter__title">| Review Score</h5>
+            <h5 class="filter__title">Review Score</h5>
             <hr />
             <div class="bui-group filters__list" role="group">
               <p>

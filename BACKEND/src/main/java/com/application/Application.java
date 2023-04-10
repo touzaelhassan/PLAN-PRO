@@ -84,25 +84,25 @@ public class Application {
             Category category1 = new Category();
             category1.setName("technology");
             category1.setDescription("A technology event is an event that focuses on showcasing the latest advancements in technology, including hardware, software, and emerging trends.");
-            category1.setImageUrl("image url 1");
+            category1.setImageUrl("assets/images/categories/technology.jpg");
             categoryRepositoryBean.save(category1);
 
             Category category2 = new Category();
             category2.setName("sport");
             category2.setDescription("A sports event is an organized activity that brings together athletes, teams, or fans to participate in or watch a sporting competition.");
-            category2.setImageUrl("image url 2");
+            category2.setImageUrl("assets/images/categories/sport.jpg");
             categoryRepositoryBean.save(category2);
 
             Category category3 = new Category();
             category3.setName("music");
             category3.setDescription("A music event is an organized gathering that showcases live musical performances by musicians or bands.");
-            category3.setImageUrl("image url 3");
+            category3.setImageUrl("assets/images/categories/music.jpg");
             categoryRepositoryBean.save(category3);
 
             Event event1 = new Event();
             event1.setName("Tech Connect");
             event1.setDescription("Tech Connect is a technology-focused event that brings together professionals, entrepreneurs, investors, and technology enthusiasts to discuss the latest trends, innovations, and opportunities in the tech industry.");
-            event1.setImageUrl("event image url 1");
+            event1.setImageUrl("assets/images/events/1.jpg");
             event1.setStartDate(new Date());
             event1.setEndDate(new Date() );
             event1.setPlaces(50);
@@ -115,7 +115,7 @@ public class Application {
             Event event2 = new Event();
             event2.setName("Power Play Challenge");
             event2.setDescription("Power Play Challenge is a sports event that focuses on showcasing the power and strength of athletes. The event could feature various competitions and challenges that require participants to demonstrate their physical prowess.");
-            event2.setImageUrl("event image url 2");
+            event2.setImageUrl("assets/images/events/2.jpg");
             event2.setStartDate(new Date());
             event2.setEndDate(new Date());
             event2.setPlaces(50);
@@ -128,7 +128,7 @@ public class Application {
             Event event3 = new Event();
             event3.setName("Rhythm & Beats");
             event3.setDescription("Rhythm & Beats is a name that suggests a music event that showcases different types of music, particularly those with a strong beat or rhythm. This event could feature a variety of musical genres, such as hip-hop.");
-            event3.setImageUrl("event image url 3");
+            event3.setImageUrl("assets/images/events/3.jpg");
             event3.setStartDate(new Date());
             event3.setEndDate(new Date());
             event3.setPlaces(50);

@@ -2,5 +2,3 @@
 
 #### Spring Boot - Spring Security - Angular - Docker - Jenkins Project
 
-# PLAN-PRO
-# PLAN-PRO
