@@ -2,6 +2,7 @@ package com.application.services.implementations;
 
 import com.application.classes.UserPrincipal;
 import com.application.entities.Attendee;
+import com.application.entities.Organizer;
 import com.application.entities.User;
 import com.application.enums.Role;
 import com.application.exceptions.classes.*;
@@ -77,23 +78,47 @@ public class UserServiceImplementation implements UserServiceSpecification, User
 
         validateNewUsernameAndEmail(EMPTY, username, email);
 
-        Attendee attendee = new Attendee();
-        attendee.setUserId(generateUserId());
-        String password = "123456";
-        String encodedPassword = encodePassword(password);
-        attendee.setFirstname(firstname);
-        attendee.setLastname(lastname);
-        attendee.setUsername(username);
-        attendee.setEmail(email);
-        attendee.setJoinDate(new Date());
-        attendee.setPassword(encodedPassword);
-        attendee.setIsActive(true);
-        attendee.setIsNotLocked(true);
-        attendee.setRole(ROLE_ATTENDEE.name());
-        attendee.setAuthorities(ROLE_ATTENDEE.getAuthorities());
-        attendee.setProfileImageUrl(getTemporaryProfileImageUrl(username));
-        userRepositoryBean.save(attendee);
-        return attendee;
+        if(role.equals("ROLE_ATTENDEE")){
+
+            Attendee attendee = new Attendee();
+            attendee.setUserId(generateUserId());
+            String password = "123456";
+            String encodedPassword = encodePassword(password);
+            attendee.setFirstname(firstname);
+            attendee.setLastname(lastname);
+            attendee.setUsername(username);
+            attendee.setEmail(email);
+            attendee.setJoinDate(new Date());
+            attendee.setPassword(encodedPassword);
+            attendee.setIsActive(true);
+            attendee.setIsNotLocked(true);
+            attendee.setRole(ROLE_ATTENDEE.name());
+            attendee.setAuthorities(ROLE_ATTENDEE.getAuthorities());
+            attendee.setProfileImageUrl("assets/images/profile-image.png");
+            userRepositoryBean.save(attendee);
+            return attendee;
+
+        }else{
+
+            Organizer organizer = new Organizer();
+            organizer.setUserId(generateUserId());
+            String password = "123456";
+            String encodedPassword = encodePassword(password);
+            organizer.setFirstname(firstname);
+            organizer.setLastname(lastname);
+            organizer.setUsername(username);
+            organizer.setEmail(email);
+            organizer.setJoinDate(new Date());
+            organizer.setPassword(encodedPassword);
+            organizer.setIsActive(true);
+            organizer.setIsNotLocked(true);
+            organizer.setRole(ROLE_ORGANIZER.name());
+            organizer.setAuthorities(ROLE_ORGANIZER.getAuthorities());
+            organizer.setProfileImageUrl("assets/images/profile-image.png");
+            userRepositoryBean.save(organizer);
+            return organizer;
+
+        }
 
     }
 

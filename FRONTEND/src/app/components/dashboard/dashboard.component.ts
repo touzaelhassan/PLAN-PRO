@@ -5,11 +5,13 @@ import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enums/notification-type.enum';
 import { Role } from 'src/app/enums/role.enum';
 import { CustomHttpRespone } from 'src/app/models/custom-http-response';
+import { Event } from 'src/app/models/event';
 import { Hotel } from 'src/app/models/hotel';
 import { Reservation } from 'src/app/models/reservation';
 import { Room } from 'src/app/models/room';
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EventService } from 'src/app/services/event.service';
 import { HotelService } from 'src/app/services/hotel.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ReservationService } from 'src/app/services/reservation.service';
@@ -24,10 +26,11 @@ import { UserService } from 'src/app/services/user.service';
 export class DashboardComponent implements OnInit, OnDestroy {
 
    @Input() admin: boolean = false; 
-   @Input() owner: boolean = false; 
-   @Input() client: boolean = false; 
+   @Input() organizer: boolean = false; 
+   @Input() attendee: boolean = false; 
 
     public users: User[] = [];
+    public events: Event[] = [];
     public hotels: Hotel[] = [];
     public rooms: Room[] = [];
     public reservations: Reservation[] = [];
@@ -36,7 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public selectedUser?: any;
     private currentUsername?: string;
     public editedUser = new User();
-    public editedHotel = new Hotel();
+    public editedEvent = new Event();
     public editedRoom = new Room();
     public editedReservation = new Reservation();
     public profileImage: any;
@@ -46,6 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     constructor(
       private authenticationService: AuthenticationService, 
       private userService: UserService,
+      private eventService: EventService,
       private hotelService: HotelService,
       private roomService: RoomService, 
       private reservationService: ReservationService, 
@@ -56,15 +60,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ngOnInit(): void { 
       this.loggedInUser = this.authenticationService.getUserFromLocalStorage();
       this.getUsers();
-      this.getHotels();
-      this.getRooms();
+      this.getEvents();
       this.getReservations();
     }
 
     public getUserRole(): string { return this.authenticationService.getUserFromLocalStorage().role; }
-    public get isAdmin(): boolean{ return this.getUserRole() === Role.SUPER_ADMIN || this.getUserRole() === Role.ADMIN; }
-    public get isOwner(): boolean{ return this.getUserRole() === Role.OWNER; }
-    public get isClient(): boolean{ return this.getUserRole() === Role.CLIENT }
+
+    public get isAdmin(): boolean{ return this.getUserRole() === Role.ADMIN; }
+    public get isOrganizer(): boolean{ return this.getUserRole() === Role.ORGANIZER; }
+    public get isAttendee(): boolean{ return this.getUserRole() === Role.ATTENDEE }
 
     public getUsers(): void{
       this.subscriptions.push(
@@ -80,11 +84,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       )
     }
 
-    public getHotels(): void{
+    public getEvents(): void{
       this.subscriptions.push(
-        this.hotelService.getHotels().subscribe(
-          (response: Hotel[]) => {
-            this.hotels = response;
+        this.eventService.getEvents().subscribe(
+          (response: Event[]) => {
+            this.events = response;
           },
           (httpErrorResponse: HttpErrorResponse) => {
             this.sendErrorNotification(NotificationType.ERROR, httpErrorResponse.error.message);
@@ -182,7 +186,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.hotelService.addHotel(formData).subscribe(
           (response: any) =>{
             document.getElementById("new-hotel-close")?.click();
-            this.getHotels();
+            this.getEvents();
             this.hotelImage = null;
             this.notificationService.notify(NotificationType.SUCCESS, `The new hotel was added successfully !!.`);
           },  
@@ -243,20 +247,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       )
     }
 
-    public onEditHotel(hotel: Hotel): void{
-      this.editedHotel = hotel;
+    public onEditHotel(event: Event): void{
+      this.editedEvent = event;
       document.getElementById("openHotelEdit")?.click();
     }
 
     public onUpdateHotel(): void{
-      const hotelOwner = this.editedHotel.owner.username;
-      const formData = this.hotelService.createHotelFormData(hotelOwner, this.editedHotel , this.hotelImage);
+      const hotelOwner = this.editedEvent.organizer.username;
+      const formData = this.hotelService.createHotelFormData(hotelOwner, this.editedEvent , this.hotelImage);
       this.subscriptions.push(
         this.hotelService.updateHotel(formData).subscribe(
           (response: any) =>{
             document.getElementById("closeEditHotelModalButton")?.click();
             this.sendErrorNotification(NotificationType.SUCCESS, `The user information were updated successfully !!.`);
-            this.getHotels();
+            this.getEvents();
             this.hotelImage = null;
           },  
           (httpErrorResponse: HttpErrorResponse) => {
@@ -293,7 +297,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           (response: any) =>{
             document.getElementById("closeEditHotelModalButton")?.click();
             this.sendErrorNotification(NotificationType.SUCCESS, `The user information were updated successfully !!.`);
-            this.getHotels();
+            this.getEvents();
             this.hotelImage = null;
           },  
           (httpErrorResponse: HttpErrorResponse) => {
@@ -323,7 +327,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.hotelService.deleteHotel(id).subscribe(
           (response: CustomHttpRespone)=>{
-            this.getHotels();
+            this.getEvents();
             this.getHotelsByOwnerId(this.loggedInUser.id);
             this.sendErrorNotification(NotificationType.SUCCESS, response.message);
           },

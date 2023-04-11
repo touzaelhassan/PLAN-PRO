@@ -4,19 +4,17 @@
     <div class="header__content">
       <div class="nav__right">
         <ul class="nav nav__list">
-          <li class="nav__item">
-            <a class="nav__link active" data-bs-toggle="tab" href="#users"
+          <li *ngIf="isAdmin"  class="nav__item">
+            <a class="nav__link" data-bs-toggle="tab" href="#users"
               >Users</a
             >
           </li>
-          <li *ngIf="isAdmin || isOwner" class="nav__item">
-            <a class="nav__link" data-bs-toggle="tab" href="#hotels">Hotels</a>
+          <li *ngIf="isAdmin || isOrganizer" class="nav__item">
+            <a class="nav__link" data-bs-toggle="tab" href="#hotels">Events</a>
           </li>
-          <li *ngIf="isAdmin || isOwner" class="nav__item">
-            <a class="nav__link" data-bs-toggle="tab" href="#rooms">Rooms</a>
-          </li>
+      
           <li class="nav__item">
-            <a class="nav__link" data-bs-toggle="tab" href="#reservations"
+            <a class="nav__link active" data-bs-toggle="tab" href="#reservations"
               >Reservations</a
             >
           </li>
@@ -42,8 +40,9 @@
 <main class="main">
   <div class="container">
     <div class="tab-content main__content">
+
       <!-- Start Users Table -->
-      <div class="tab-pane fade show active" id="users">
+      <div *ngIf="isAdmin"  class="tab-pane fade" id="users">
         <div class="table__header">
           <form class="form-inline my-2 my-lg-0 d-flex justify-content-center">
             <label class="d-flex justify-content-center align-items-center"
@@ -90,7 +89,7 @@
             <tr *ngFor="let user of users" class="text-center">
               <td>{{ user.userId }}</td>
               <td (click)="onSelectUser(user)">
-                <img src="{{ user.profileImageUrl }}" style="width: 60px" />
+                <img src="{{ user.profileImageUrl }}" style="width: 50px" />
               </td>
               <td (click)="onSelectUser(user)">{{ user.firstname }}</td>
               <td (click)="onSelectUser(user)">{{ user.lastname }}</td>
@@ -182,7 +181,7 @@
               data-bs-toggle="modal"
               data-bs-target="#addHotelModal"
             >
-              Add Hotel
+              Add Event
             </button>
           </div>
         </div>
@@ -192,49 +191,35 @@
               <th>#</th>
               <th>Image</th>
               <th>Name</th>
-              <th>Owner</th>
-              <th>Number of Rooms</th>
-              <th>Parking</th>
-              <th>Restaurant</th>
+              <th>Organizer</th>
+              <th>Number of places</th>
               <th>Avilability</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let hotel of hotels" class="text-center">
-              <td>{{ hotel.id }}</td>
+            <tr *ngFor="let event of events" class="text-center">
+              <td>{{ event.id }}</td>
               <td>
-                <img src="{{ hotel.imageUrl }}" style="width: 60px" />
+                <img src="{{ event.imageUrl }}" style="width: 60px" />
               </td>
-              <td>{{ hotel.name }}</td>
-              <td>{{ hotel.owner.username }}</td>
-              <td>25</td>
+              <td>{{ event.name }}</td>
+              <td>{{ event.organizer.username }}</td>
+              <td>{{ event.places }}</td>
               <td>
-                <i
-                  class="fa-sharp fa-solid fa-square-check text-success"
-                  style="font-size: 25px"
-                ></i>
-              </td>
-              <td>
-                <i
-                  class="fa-sharp fa-solid fa-square-check text-success"
-                  style="font-size: 25px"
-                ></i>
-              </td>
-              <td>
-                <span *ngIf="hotel.available" class="btn btn-sm btn-success"
+                <span *ngIf="event.isAvailable" class="btn btn-sm btn-success"
                   ><i class="fa-solid fa-house"></i
                 ></span>
-                <span class="btn btn-sm btn-warning" [hidden]="hotel.available"
+                <span class="btn btn-sm btn-warning" [hidden]="event.isAvailable"
                   ><i class="fa-solid fa-shop-slash"></i
                 ></span>
               </td>
               <td>
-                <span [hidden]="hotel.approved" class="btn btn-sm btn-warning"
+                <span [hidden]="event.isApproved" class="btn btn-sm btn-warning"
                   >Pending</span
                 >
-                <span *ngIf="hotel.approved" class="btn btn-sm btn-success"
+                <span *ngIf="event.isApproved" class="btn btn-sm btn-success"
                   >Approved</span
                 >
               </td>
@@ -242,14 +227,14 @@
               <td>
                 <div class="d-flex justify-content-between">
                   <button
-                    class="btn btn-sm btn-success"
-                    (click)="onEditHotel(hotel)"
+                    class="btn btn-sm btn-primary"
+                    (click)="onEditHotel(event)"
                   >
                     <i class="fas fa-edit"></i>
                   </button>
                   <button
                     class="btn btn-sm btn-danger"
-                    (click)="onDeleteHotel(hotel.id)"
+                    (click)="onDeleteHotel(event.id)"
                   >
                     <i class="fas fa-trash"></i>
                   </button>
@@ -261,96 +246,15 @@
       </div>
       <!-- End Hotels Table -->
 
-      <!-- Start Rooms Table -->
-      <div class="tab-pane fade" id="rooms">
-        <div class="table__header">
-          <form class="form-inline my-2 my-lg-0 d-flex justify-content-center">
-            <label class="d-flex justify-content-center align-items-center"
-              >SEARCH</label
-            >
-            <input
-              name="searchTerm"
-              #searchInput="ngModel"
-              class="form-control mr-sm-2"
-              ngModel
-              (ngModelChange)="searchInUsersList(searchInput.value)"
-              type="search"
-              placeholder="Search Rooms..."
-            />
-          </form>
-          <div>
-            <button
-              type="button"
-              class="btn ms-5 add__btn"
-              data-bs-toggle="modal"
-              data-bs-target="#addRoomModal"
-            >
-              Add Room
-            </button>
-          </div>
-        </div>
-        <table class="table table-hover table-bordered">
-          <thead class="table-borderless">
-            <tr class="text-center">
-              <th>#</th>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Hotel</th>
-              <th>Price</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let room of rooms">
-            <tr class="text-center">
-              <td>{{ room.id }}</td>
-              <td>
-                <img src="{{ room.imageUrl }}" style="width: 60px" />
-              </td>
-              <td>{{ room.name }}</td>
-              <td>{{ room.hotel.name }}</td>
-              <td>{{ room.price }}</td>
-              <td>
-                <span *ngIf="room.available" class="btn btn-sm btn-primary"
-                  >OPEN</span
-                >
-                <span [hidden]="room.available" class="btn btn-sm btn-success"
-                  >RESERVED</span
-                >
-              </td>
-              <td>
-                <div class="d-flex justify-content-between">
-                  <button
-                    class="btn btn-sm btn-success"
-                    (click)="onEditRoom(room)"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button
-                    class="btn btn-sm btn-danger"
-                    (click)="onDeleteRoom(room.id)"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- Start Rooms Table -->
-
       <!-- Start Reservations Table -->
-      <div class="tab-pane fade" id="reservations">
+      <div class="tab-pane fade show active" id="reservations">
         <table class="table table-hover table-bordered">
           <thead class="table-borderless">
             <tr class="text-center">
               <th>#</th>
               <th>Image</th>
-              <th>Client</th>
-              <th>Room</th>
-              <th>Checking</th>
-              <th>Checkout</th>
+              <th>Event</th>
+              <th>Organizer</th>
               <th>Parking</th>
               <th>Restaurant</th>
               <th>Status</th>
@@ -362,14 +266,12 @@
               <td>{{ reservation.id }}</td>
               <td>
                 <img
-                  src="{{ reservation.room.imageUrl }}"
+                  src="{{ reservation.event.imageUrl }}"
                   style="width: 60px"
                 />
               </td>
-              <td>{{ reservation.client.username }}</td>
-              <td>{{ reservation.room.name }}</td>
-              <td>{{ reservation.checking }}</td>
-              <td>{{ reservation.checkout }}</td>
+              <td>{{ reservation.event.name }}</td>
+              <td>{{ reservation.event.organizer.lastname }}</td>
               <td>
                 <i
                   class="fa-sharp fa-solid fa-square-check text-success"
@@ -421,14 +323,15 @@
         </table>
       </div>
       <!-- Start Reservations Table -->
+
     </div>
   </div>
 </main>
 <!-- Start Main Section -->
 
-<!-- Start Footer Section -->
-<footer></footer>
-<!-- End Footer Section -->
+
+
+
 
 <!-- START USER MODALS ========================================================================================================== -->
 
@@ -905,6 +808,10 @@
 
 <!-- End USER MODALS ============================================================================================================ -->
 
+
+
+
+
 <!-- START HOTEL MODALS ========================================================================================================= -->
 
 <!-- Start Headen Buttons For Displaying View and Edit Hotel Modals -->
@@ -1052,7 +959,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content px-3">
       <div class="modal-header">
-        <h5 class="modal-title text-center">Edit : {{ editedHotel.name }}</h5>
+        <h5 class="modal-title text-center">Edit : {{ editedEvent.name }}</h5>
         <button
           type="button"
           class="close close-btn-modal"
@@ -1072,7 +979,7 @@
                 type="text"
                 name="name"
                 required
-                [(ngModel)]="editedHotel.name"
+                [(ngModel)]="editedEvent.name"
                 class="form-control"
               />
             </div>
@@ -1082,7 +989,7 @@
                 class="form-control"
                 name="description"
                 required
-                [(ngModel)]="editedHotel.description"
+                [(ngModel)]="editedEvent.description"
                 rows="3"
               ></textarea>
             </div>
@@ -1103,7 +1010,7 @@
                 <input
                   type="checkbox"
                   name="isAvailable"
-                  [(ngModel)]="editedHotel.available"
+                  [(ngModel)]="editedEvent.isAvailable"
                   class="form-check-input"
                 />
                 Available
@@ -1115,7 +1022,7 @@
                   [disabled]="!isAdmin"
                   type="checkbox"
                   name="isApproved"
-                  [(ngModel)]="editedHotel.approved"
+                  [(ngModel)]="editedEvent.isApproved"
                   class="form-check-input"
                 />
                 Approve
@@ -1153,6 +1060,10 @@
 <!-- End Edit Hotel Modal -->
 
 <!-- END HOTEL MODALS =========================================================================================================== -->
+
+
+
+
 
 <!-- START ROOM MODALS =========================================================================================================== -->
 
@@ -1284,4 +1195,5 @@
   </div>
 </div>
 <!-- End Add Room Modal -->
+
 <!-- END ROOM MODALS =============================================================================================================== -->

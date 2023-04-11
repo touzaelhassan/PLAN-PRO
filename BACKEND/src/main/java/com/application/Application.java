@@ -42,11 +42,12 @@ public class Application {
         return args -> {
 
             Admin admin = new Admin();
-            admin.setUserId("534376");
+            admin.setUserId("6156534028");
             admin.setFirstname("El Hassan");
             admin.setLastname("Touza");
-            admin.setUsername("hassan");
+            admin.setUsername("hassan1");
             admin.setEmail("hassan@gmail.com");
+            admin.setProfileImageUrl("assets/images/profile-image.png");
             admin.setJoinDate(new Date());
             admin.setPassword(bCryptPasswordEncoder.encode("123456"));
             admin.setIsActive(true);
@@ -56,11 +57,12 @@ public class Application {
             userRepositoryBean.save(admin);
 
             Organizer organizer = new Organizer();
-            organizer.setUserId("534377");
-            organizer.setFirstname("Mustapha");
+            organizer.setUserId("6156534016");
+            organizer.setFirstname("Younes");
             organizer.setLastname("Bill");
-            organizer.setUsername("mustapha");
-            organizer.setEmail("mustapha@gmail.com");
+            organizer.setUsername("hassan2");
+            organizer.setEmail("younes@gmail.com");
+            organizer.setProfileImageUrl("assets/images/profile-image.png");
             organizer.setJoinDate(new Date());
             organizer.setPassword(bCryptPasswordEncoder.encode("123456"));
             organizer.setIsActive(true);
@@ -70,11 +72,12 @@ public class Application {
             userRepositoryBean.save(organizer);
 
             Attendee attendee = new Attendee();
-            attendee.setUserId("534378");
-            attendee.setFirstname("Yassine");
+            attendee.setUserId("6156934026");
+            attendee.setFirstname("Mustapha");
             attendee.setLastname("Mol");
-            attendee.setUsername("yassine");
-            attendee.setEmail("yassine@gmail.com");
+            attendee.setUsername("hassan3");
+            attendee.setEmail("mustapha@gmail.com");
+            attendee.setProfileImageUrl("assets/images/profile-image.png");
             attendee.setJoinDate(new Date());
             attendee.setPassword(bCryptPasswordEncoder.encode("123456"));
             attendee.setIsActive(true);

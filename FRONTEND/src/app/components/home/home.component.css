@@ -127,6 +127,13 @@ a {
   background-color: #253139;
 }
 
+.discover-category-description{
+  margin-bottom: 50px;
+  color: #344854;
+  line-height: 1.7;
+  letter-spacing: 1px;
+}
+
 .hotels__content {
   gap: 50px !important;
   justify-content: space-between;
