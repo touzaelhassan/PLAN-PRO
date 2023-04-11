@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enums/notification-type.enum';
 import { Reservation } from 'src/app/models/reservation';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EventService } from 'src/app/services/event.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { RoomService } from 'src/app/services/room.service';
@@ -17,12 +18,12 @@ import { RoomService } from 'src/app/services/room.service';
 export class ReservationComponent implements OnInit   {
 
     public loggedInUser: any;
-    public room:any;
+    public event:any;
     private subscriptions: Subscription[] = [];
 
     constructor(
       private authenticationService: AuthenticationService, 
-      private roomService: RoomService, 
+      private eventService: EventService, 
       private reservationService: ReservationService, 
        private activatedRoute: ActivatedRoute,
       private router: Router,
@@ -31,20 +32,20 @@ export class ReservationComponent implements OnInit   {
 
     ngOnInit(): void { 
       this.loggedInUser = this.authenticationService.getUserFromLocalStorage();
-      this.activatedRoute.paramMap.subscribe(()=>{this.getRoomById()})
+      this.activatedRoute.paramMap.subscribe(()=>{this.getEventById()})
     }
 
-    public getRoomById() {
+    public getEventById() {
       const id: number = +this.activatedRoute.snapshot.params['id'];
-      this.roomService.getRoomById(id).subscribe(
+      this.eventService.getEventById(id).subscribe(
         (data) => { 
-          this.room = data;
+          this.event = data;
         }
       )
     }
 
     public onAddNewReservation(reservationForm: Reservation){
-        const formData = this.reservationService.createReservationFormData(this.loggedInUser.id, this.room.id, reservationForm);
+        const formData = this.reservationService.createReservationFormData(this.loggedInUser.id, this.event.id, reservationForm);
       this.subscriptions.push(
         this.reservationService.addReservation(formData).subscribe(
           (response: any) =>{

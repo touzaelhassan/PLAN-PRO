@@ -1,13 +1,13 @@
 package com.application.controllers;
 
 import com.application.classes.HttpResponse;
-import com.application.entities.Category;
 import com.application.entities.Event;
 import com.application.services.specifications.EventServiceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +30,12 @@ public class EventController {
     public ResponseEntity<List<Event>> getHotels() {
         List<Event> events = eventServiceBean.getEvents();
         return new ResponseEntity<>(events, OK);
+    }
+
+    @GetMapping("/event/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable Integer id) {
+        Event event = eventServiceBean.getEventById(id);
+        return new ResponseEntity<>(event, OK);
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

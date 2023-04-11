@@ -33,12 +33,10 @@ export class ReservationService {
         return this.http.delete<any>(`${this.host}/api/reservation/delete/${id}`);
     } 
 
-    public createReservationFormData(clientId:any, roomId: any, reservation: Reservation): FormData {
+    public createReservationFormData(attendeeId:any, eventId: any, reservation: Reservation): FormData {
         const formData = new FormData();
-        formData.append('clientId', clientId);
-        formData.append('roomId', roomId);
-        formData.append('checking', reservation.checking);
-        formData.append('checkout', reservation.checkout);
+        formData.append('attendeeId', attendeeId);
+        formData.append('eventId', eventId);
         return formData;
   }
 

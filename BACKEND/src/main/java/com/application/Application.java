@@ -3,6 +3,7 @@ package com.application;
 import com.application.entities.*;
 import com.application.repositories.CategoryRepository;
 import com.application.repositories.EventRepository;
+import com.application.repositories.ReservationRepository;
 import com.application.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,6 +35,7 @@ public class Application {
             UserRepository userRepositoryBean,
             CategoryRepository categoryRepositoryBean,
             EventRepository eventRepositoryBean,
+            ReservationRepository reservationRepositoryBean,
             BCryptPasswordEncoder bCryptPasswordEncoder
     ){
 
@@ -176,6 +178,12 @@ public class Application {
             event6.setCategory(category3);
             event6.setOrganizer(organizer);
             eventRepositoryBean.save(event6);
+
+            Reservation reservation = new Reservation();
+            reservation.setIsApproved(false);
+            reservation.setAttendee(attendee);
+            reservation.setEvent(event1);
+            reservationRepositoryBean.save(reservation);
 
         };
     }

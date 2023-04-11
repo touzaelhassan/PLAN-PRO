@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface EventServiceSpecification {
     List<Event> getEvents();
+    Event getEventById(Integer id);
 }

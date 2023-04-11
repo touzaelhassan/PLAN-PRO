@@ -21,4 +21,7 @@ public class EventServiceImplementation implements EventServiceSpecification {
     public List<Event> getEvents() {
         return eventRepositoryBean.findAll();
     }
+
+    @Override
+    public Event getEventById(Integer id) { return eventRepositoryBean.findById(id).orElse(null); }
 }
