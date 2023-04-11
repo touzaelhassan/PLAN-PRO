@@ -6,13 +6,11 @@ export class Category {
   public description: string;
   public imageUrl: string;
 
-
   constructor() {
     this.id = undefined;
     this.name = '';
     this.description = '';
     this.imageUrl = '';
-
   }
 
 }

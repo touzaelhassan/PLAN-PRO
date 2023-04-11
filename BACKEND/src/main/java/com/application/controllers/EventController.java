@@ -2,7 +2,8 @@ package com.application.controllers;
 
 import com.application.classes.HttpResponse;
 import com.application.entities.Category;
-import com.application.services.specifications.CategoryServiceSpecification;
+import com.application.entities.Event;
+import com.application.services.specifications.EventServiceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +17,19 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api")
-public class CategoryController {
-   private final CategoryServiceSpecification categoryServiceBean;
+public class EventController {
 
-   @Autowired
-    public CategoryController(CategoryServiceSpecification categoryServiceBean) {
-        this.categoryServiceBean = categoryServiceBean;
+    private final EventServiceSpecification eventServiceBean;
+
+    @Autowired
+    public EventController(EventServiceSpecification eventServiceBean) {
+        this.eventServiceBean = eventServiceBean;
     }
 
-    @GetMapping("/categories")
-    public ResponseEntity<List<Category>> getHotels() {
-        List<Category> categories = categoryServiceBean.getCategories();
-        return new ResponseEntity<>(categories, OK);
+    @GetMapping("/events")
+    public ResponseEntity<List<Event>> getHotels() {
+        List<Event> events = eventServiceBean.getEvents();
+        return new ResponseEntity<>(events, OK);
     }
 
     private ResponseEntity<HttpResponse> response(HttpStatus httpStatus, String message) {

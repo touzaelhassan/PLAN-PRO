@@ -82,7 +82,7 @@ public class Application {
             userRepositoryBean.save(attendee);
 
             Category category1 = new Category();
-            category1.setName("technology");
+            category1.setName("tech");
             category1.setDescription("A technology event is an event that focuses on showcasing the latest advancements in technology, including hardware, software, and emerging trends.");
             category1.setImageUrl("assets/images/categories/technology.jpg");
             categoryRepositoryBean.save(category1);
@@ -100,7 +100,7 @@ public class Application {
             categoryRepositoryBean.save(category3);
 
             Event event1 = new Event();
-            event1.setName("Tech Connect");
+            event1.setName("The Tech Connect");
             event1.setDescription("Tech Connect is a technology-focused event that brings together professionals, entrepreneurs, investors, and technology enthusiasts to discuss the latest trends, innovations, and opportunities in the tech industry.");
             event1.setImageUrl("assets/images/events/1.jpg");
             event1.setStartDate(new Date());
@@ -137,6 +137,45 @@ public class Application {
             event3.setCategory(category3);
             event3.setOrganizer(organizer);
             eventRepositoryBean.save(event3);
+
+            Event event4 = new Event();
+            event4.setName("AI World Summit");
+            event4.setDescription("The AI World Summit is a technology event focused on the rapidly-evolving field of artificial intelligence. The summit brings together experts, thought leaders, and industry professionals from various sectors, including technology.");
+            event4.setImageUrl("assets/images/events/4.jpg");
+            event4.setStartDate(new Date());
+            event4.setEndDate(new Date() );
+            event4.setPlaces(50);
+            event4.setIsAvailable(true);
+            event4.setIsApproved(true);
+            event4.setCategory(category1);
+            event4.setOrganizer(organizer);
+            eventRepositoryBean.save(event4);
+
+            Event event5 = new Event();
+            event5.setName("The Iron Champ");
+            event5.setDescription("The Iron Champ is a weightlifting and bodybuilding competition that brings together athletes from around the world to showcase their strength and physical prowess. The competition typically includes events like the bench press, squat.");
+            event5.setImageUrl("assets/images/events/5.jpg");
+            event5.setStartDate(new Date());
+            event5.setEndDate(new Date() );
+            event5.setPlaces(50);
+            event5.setIsAvailable(true);
+            event5.setIsApproved(true);
+            event5.setCategory(category2);
+            event5.setOrganizer(organizer);
+            eventRepositoryBean.save(event5);
+
+            Event event6 = new Event();
+            event6.setName("The Tune Town");
+            event6.setDescription("The Tune Town is the ultimate destination for music lovers of all kinds. Join us for a day of non-stop tunes, featuring a diverse lineup of artists from all genres and backgrounds. From indie rock to pop, hip-hop to country.");
+            event6.setImageUrl("assets/images/events/6.jpg");
+            event6.setStartDate(new Date());
+            event6.setEndDate(new Date() );
+            event6.setPlaces(50);
+            event6.setIsAvailable(true);
+            event6.setIsApproved(true);
+            event6.setCategory(category3);
+            event6.setOrganizer(organizer);
+            eventRepositoryBean.save(event6);
 
         };
     }

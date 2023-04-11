@@ -123,37 +123,36 @@
     </div>
     <div class="row gap-5 rooms__layout">
       <div class="col-8 rooms__content">
-        <div *ngFor="let room of rooms" class="room__item">
-          <div class="row align-items-shrenk">
-            <div class="col-3 room__image">
-              <img src="{{ room.imageUrl }}" class="w-100" />
+        <div *ngFor="let event of events" class="room__item">
+          <div class="row ">
+            <div class="room__image">
+              <img src="{{ event.imageUrl }}" class="w-100" />
             </div>
-            <div class="col-9 room__text">
-              <h6 class="room__name">{{ room.name }}</h6>
-              <p class="room__description">{{ room.description }}</p>
-              <div class="d-flex justify-content-between">
-                <p>
-                  Price :
-                  <span class="room__price">{{
-                    room.price | currency : "USD"
-                  }}</span>
-                </p>
-                <button
-                  class="room__details__link btn btn-sm"
-                  (click)="onSelectRoom(room)"
-                >
-                  Details
-                </button>
+            <div class="room__text">
+
+               <div class="mt-3 d-flex justify-content-between align-items-center">
+                   <h6 class="m-0 room__name">{{ event.name }}</h6>
+                   <p class="m-0 text-capitalize category-name">#{{ event.category.name }}</p>
+               </div>
+
+               <div>
+                  <p class="event-date">{{ event.startDate }}</p> 
+               </div>
+               
+               <div class="d-flex justify-content-between align-items-center">
+                  <p class="m-0"> Places : <span class="room__price">{{ event.places }}</span> </p>
+                  <button class="room__details__link btn btn-sm" (click)="onSelectEvent(event)"> Details </button>  
               </div>
+
             </div>
-          </div>
+      </div>
         </div>
       </div>
       <div class="col-3 rooms__sidebar">
         <div class="filters__container" data-lp-ga-view="filter:view">
           <h6
             class="filters__header mb-4 p-3"
-            style="color: #eee; background-color: #344854; border-radius: 3px"
+            style="color: #eee; background-color: #FF6633; border-radius: 3px"
           >
             Filter By :
           </h6>
@@ -256,7 +255,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title text-center" id="exampleModalLongTitle">
-          | {{ selectedRoom.hotel.name }}
+          | {{ selectedEvent.name }}
         </h5>
         <button
           type="button close-btn-modal"
@@ -271,16 +270,15 @@
         <div>
           <div class="card">
             <div class="card-body">
-              <div class="row">
+              <div class="">
                 <div class="col-12 col-sm-auto">
-                  <div class="mx-auto" style="width: 150px">
+                  <div class="mx-auto mb-3" style="width: 420px">
                     <div
                       class="d-flex justify-content-center align-items-center rounded"
                     >
                       <img
-                        class="rounded"
-                        width="150"
-                        src="{{ selectedRoom.imageUrl }}"
+                        class="w-100"
+                        src="{{ selectedEvent.imageUrl }}"
                       />
                     </div>
                   </div>
@@ -289,22 +287,21 @@
                   class="col d-flex flex-column flex-sm-row justify-content-between"
                 >
                   <div class="text-sm-left mb-sm-0">
-                    <h6 class="p-0 mb-2 text-nowrap">
-                      <span>Name : </span>
+                    <h4 class="p-0 mb-2 text-nowrap">
                       <span>
-                        {{ selectedRoom.name }}
+                        {{ selectedEvent.name }}
                       </span>
-                    </h6>
+                    </h4>
                     <div class="mb-2">
                       <span>Description : </span>
-                      <span style="color: #666; font-size: 12px">{{
-                        selectedRoom.description
+                      <span style="color: #666; font-size: 14px">{{
+                        selectedEvent.description
                       }}</span>
                     </div>
                     <div class="d-flex justify-content-between">
-                      <span>Price : </span>
+                      <span>Places : </span>
                       <span style="color: #344854; font-weight: 600">{{
-                        selectedRoom.price | currency : "USD"
+                        selectedEvent.places 
                       }}</span>
                     </div>
                   </div>
@@ -312,29 +309,14 @@
               </div>
             </div>
             <ul class="list-group list-group-flush">
+         
               <li class="list-group-item">
-                <i class="fa-solid fa-utensils me-3"></i>
-                <span>Restaurant</span>
-              </li>
-              <li class="list-group-item">
-                <i class="fa-solid fa-person-swimming me-3"></i>
-                <span>Swiming Pool</span>
-              </li>
-              <li class="list-group-item">
-                <i class="fa-solid fa-square-parking me-3"></i>
-                <span>Parking</span>
-              </li>
-              <li class="list-group-item">
-                <i class="fa-solid fa-wifi me-3"></i>
-                <span>Free Wi-Fi</span>
-              </li>
-              <li class="list-group-item">
-                <span *ngIf="selectedRoom">
+                <span *ngIf="selectedEvent">
                   <i class="fa fa-unlock float-right me-3" style="color: green">
                   </i>
                   <span>Open</span>
                 </span>
-                <span [hidden]="selectedRoom">
+                <span [hidden]="selectedEvent">
                   <i class="fa fa-lock float-right me-3" style="color: #ffcc00">
                   </i>
                   <span>Reserved</span>
@@ -346,10 +328,12 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button
-          class="btn btn-sm btn-success"
-          (click)="onBooking(selectedRoom.id)"
+          class="btn btn-sm text-white"
+        
+        style="background-color:#FF6633 "
+          (click)="onBooking(selectedEvent.id)"
         >
-          Book This Room
+          Reserve Your Place
         </button>
         <button
           type="button"

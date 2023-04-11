@@ -136,6 +136,7 @@ a {
   padding-right: 0;
   padding-left: 0;
   padding: 25px;
+  border: 2px solid #e1e1e1;
   width: 400px;
   text-align: center;
   box-shadow: rgba(100, 100, 111, 0.1) 0px 7px 29px 0px;
@@ -154,8 +155,9 @@ a {
   margin: auto;
   display: block;
   padding: 17px 20px;
+  border: 2px solid #dddddd;
   color: #fff;
-  background-color: #344854;
+  background-color: #FF6633;
   text-decoration: none;
   font-size: 13px;
   letter-spacing: 1px;
@@ -194,10 +196,11 @@ a {
 .offer__section button {
   margin-top: 40px;
   padding: 15px 40px;
-  border: none;
+  border: 1px solid #fff;
   border-radius: 3px;
-  color: #344854;
-  background-color: #fff;
+  color: #fff;
+  background-color: #FF6633;
+  text-transform: uppercase;
 }
 /* End Hotels Section */
 
@@ -217,6 +220,9 @@ a {
 }
 
 .rooms__content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
   padding: 30px;
   padding-bottom: 0;
   border: 2px solid #eee;
@@ -224,6 +230,7 @@ a {
 }
 
 .room__item {
+  width: 30%;
   margin-bottom: 30px;
   padding: 15px;
   border: 2px solid #eee;
@@ -233,6 +240,7 @@ a {
 .room__name {
   color: #253139;
   font-weight: 600;
+  font-size: 14px;
 }
 
 .room__description {
@@ -248,9 +256,23 @@ a {
 
 .room__details__link {
   color: #fff;
-  background-color: #2e414d;
+  background-color: #FF6633;
   font-size: 12px;
   letter-spacing: 1px;
+  border-radius: 0;
+}
+
+.category-name{
+  padding: 2px 7px;
+  border: 1px solid #FF6633;
+  color: #FF6633;
+  font-size: 13px;
+}
+
+.event-date{
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
 }
 /* End Rooms Section */
 
@@ -273,8 +295,8 @@ a {
 footer p {
   margin: 0;
   padding: 25px;
-  color: rgb(212, 212, 212);
-  background-color: #344854;
+  color: #666;
+  background-color: #eeeef0;
   text-align: center;
   font-size: 14px;
 }

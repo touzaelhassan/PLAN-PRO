@@ -21,9 +21,9 @@ public class Event {
     private String name;
     private String description;
     private String imageUrl;
+    private Integer places;
     private Date startDate;
     private Date endDate;
-    private Integer places;
     private Boolean isAvailable;
     private Boolean isApproved;
     @ManyToOne
