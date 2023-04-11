@@ -66,6 +66,23 @@ a {
 
 /* Start Hero Section Styles */
 
+.website-header h1{
+ margin-bottom: 20px;
+ color: #fff;
+ text-align: center;
+ font-size: 50px;
+ letter-spacing: 1px;
+}
+
+.website-header p{
+  margin-bottom: 80px;
+  color: #fff;
+  text-align: center;
+  font-size: 17px;
+  letter-spacing: 1px;
+  line-height: 1.7;
+ }
+
 .hero__section {
   height: 895px;
   background-image: url("/assets/images/hero-image.jpg");
